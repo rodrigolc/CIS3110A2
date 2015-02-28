@@ -109,9 +109,12 @@ void Scheduler::run(){
                 }
                 else if(this->last_thread->process->id == event.thread->process->id) // same process
                 {
-
-                    event.time = this->time + this->thread_switch;
-                    this->cpu_utilization += this->thread_switch;
+                    if(event.thread->id == last_thread->id){
+                        event.time = this->time;
+                    }else{
+                        event.time = this->time + this->thread_switch;
+                        this->cpu_utilization += this->thread_switch;
+                    }
                 }
                 else{ //not the same process
 
