@@ -1,3 +1,13 @@
+/* process.cpp
+
+    Student: Rodrigo Lopes de Carvalho
+    Student ID: 0905095
+
+    Implementation for the Process and Thread structs.
+    Mostly initialization and inserting
+
+*/
+
 #include "process.hpp"
 
 Thread::Thread(int id)

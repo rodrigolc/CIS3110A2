@@ -1,3 +1,13 @@
+/* process.hpp
+
+    Student: Rodrigo Lopes de Carvalho
+    Student ID: 0905095
+
+    Header file for the Process and Thread structs, and State enum.
+
+
+*/
+
 #include <deque>
 
 
@@ -19,7 +29,7 @@ struct Thread{
   int service_time;
   int block_time;
   int end_time;
-  
+
   std::deque<int> cpu_times;
   std::deque<int> io_times;
   int time_remaining;

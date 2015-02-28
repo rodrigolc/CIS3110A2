@@ -1,21 +1,29 @@
+/* main.cpp
+
+    Student: Rodrigo Lopes de Carvalho
+    Student ID: 0905095
+
+    Grabs arguments, reads input, and runs scheduler simulation
+*/
+
 #include "scheduler.hpp"
 #include <cstdio>
+#include <cstdlib>
 
 using namespace std;
 
-int handle_args(int argc,int argv, Scheduler* scheduler);
+int handle_args(int argc,char* argv[], Scheduler* scheduler);
 
-int main(){
-
+int main(int argc, char* argv[]){
 
     Scheduler* scheduler = new Scheduler();
 
-    if(! handle_args(argc,argv,scheduler)){
+    if( handle_args(argc,argv,scheduler) == -1){
         printf("wrong argument usage.\n");
         printf("See usage below:\n");
         printf("simcpu [-d] [-v] [-r quantum]\n");
 
-        exit(1);
+        return (1);
     }
 
 
@@ -26,9 +34,7 @@ int main(){
     scanf("%d %d %d",&number_of_processes,&thread_switch,&process_switch);
     scheduler->thread_switch = thread_switch;
     scheduler->process_switch = process_switch;
-    scheduler->verbose = true;
-    scheduler->type = FCFS;
-    scheduler->quantum = 0;
+
     for (int i = 0; i < number_of_processes; i++)
     {
         int process_number;
@@ -74,11 +80,14 @@ int main(){
     scheduler->fill_queue();
     scheduler->run();
     scheduler->print_stats();
+    // scheduler->clean();
+
+    delete scheduler;
 
     return 0;
 }
 
-int handle_args(int argc,int argv, Scheduler* scheduler){
+int handle_args(int argc,char* argv[], Scheduler* scheduler){
     for(int i = 1; i < argc; i++){ //argv[0] == name of program
         if(strcmp(argv[i],"-d") == 0){
             scheduler->detailed = true;

@@ -1,7 +1,26 @@
+/* scheduler.cpp
+
+    Student: Rodrigo Lopes de Carvalho
+    Student ID: 0905095
+
+    Implementation for the Scheduler class.
+    Contains most of the code for event handling.
+
+    see Scheduler::run() for more details
+*/
+
 #include "scheduler.hpp"
 
 void Scheduler::add_event(Event event){
     this->event_queue.push(event);
+}
+
+void Scheduler::pop_event(){
+    this->event_queue.pop();
+}
+
+Event Scheduler::next_event(){
+    return this->event_queue.top();
 }
 
 void Scheduler::add_thread(Thread* thread)
@@ -48,8 +67,8 @@ void Scheduler::fill_queue(){
 void Scheduler::run(){
 
     while(!this->event_queue.empty()){
-        Event event = this->event_queue.top();
-        this->event_queue.pop();
+        Event event = this->next_event();
+        this->pop_event();
         this->time = event.time;
         switch(event.type){
             case THREAD_ARRIVE:
@@ -100,7 +119,7 @@ void Scheduler::run(){
                     this->cpu_utilization += this->process_switch;
                 }
                 event.type = THREAD_RUN;
-                this->event_queue.push(event);
+                this->add_event(event);
                 this->current_thread = event.thread;
             }
         }
@@ -143,7 +162,7 @@ void Scheduler::thread_run(Thread* thread){
         event.type = THREAD_END_QUANTUM;
         event.time = this->time + this->quantum;
     }
-    this->event_queue.push(event);
+    this->add_event(event);
 
 }
 
@@ -168,7 +187,7 @@ void Scheduler::thread_block(Thread* thread){
     event.time = this->time + thread->io_times.front();
     thread->io_times.pop_front();
 
-    this->event_queue.push(event);
+    this->add_event(event);
 
 }
 

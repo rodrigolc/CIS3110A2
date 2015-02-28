@@ -1,3 +1,15 @@
+/* scheduler.hpp
+
+    Student: Rodrigo Lopes de Carvalho
+    Student ID: 0905095
+
+    Header file for the Scheduler struct and SchedulerType enum.
+
+    This is the main class used, and implements most functions needed.
+
+
+*/
+
 #include "process.hpp"
 #include "event.hpp"
 #include <queue>
@@ -28,14 +40,12 @@ struct Scheduler{
     int quantum;
     SchedulerType type;
 
-
-
-
-    Event next_event();
     void add_event(Event event);
+    void pop_event();
+    Event next_event();
     void add_thread(Thread* thread);
     void add_process(Process* process);
-    void pop_event();
+
 
     void run();
     void fill_queue();

@@ -1,3 +1,19 @@
+/* event.hpp
+
+    Student: Rodrigo Lopes de Carvalho
+    Student ID: 0905095
+
+    Header file for the Event struct, CompareEvent comparator class
+    and EventType struct.
+
+    The CompareEvent class is used to sort (weakly) the Events in the priority queue
+
+    Contains a typedef from a priority_queue of Events to EventQueue,
+    since that is an unyieldly type to memorize.
+
+
+*/
+
 #include "process.hpp"
 #include <queue>
 
